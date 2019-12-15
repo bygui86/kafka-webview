@@ -1,0 +1,14 @@
+namespace: kafka
+
+resources:
+  - podSecurityPolicy.yaml
+  - rbac.yaml
+  - configMap.yaml
+  - persistentVolumeClaim.yaml
+  - deployment.yaml
+  - service.yaml
+  - prometheusServiceMonitor.yaml
+
+commonLabels:
+  app: kafka-webview
+  group: kafka
