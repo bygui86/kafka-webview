@@ -9,6 +9,14 @@ metadata:
   name: kafka-webview
 rules:
   - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - use
+    resourceNames:
+      - kafka-webview
+  - apiGroups:
       - policy
     resources:
       - podsecuritypolicies

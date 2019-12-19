@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: kafka-webview
+spec:
+  selector:
+    matchLabels:
+      app: kafka-webview
+  namespaceSelector:
+    matchNames:
+      - kafka
+  endpoints:
+    - port: metrics
+      path: /actuator/prometheus
+      interval: 15s
+      scrapeTimeout: 14s
+      # TODO: HTTPS issue, how to fix it to let Prometheus continue scraping metrics?

@@ -4,7 +4,7 @@ resources:
   - podSecurityPolicy.yaml
   - rbac.yaml
   - configMap.yaml
-  - persistentVolumeClaim.yaml
+  - secret.yaml
   - deployment.yaml
   - service.yaml
   - prometheusServiceMonitor.yaml

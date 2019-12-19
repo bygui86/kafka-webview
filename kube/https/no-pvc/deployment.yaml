@@ -1,0 +1,74 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-webview
+  annotations:
+    version: v2.5.0
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: kafka-webview
+  template:
+    metadata:
+      labels:
+        app: kafka-webview
+    spec:
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1001
+        fsGroup: 1001
+      containers:
+        - name: kafka-webview
+          image: sourcelaborg/kafka-webview:2.5.0
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: kafka-webview
+            - secretRef:
+                name: kafka-webview
+          ports:
+            - name: https
+              containerPort: 8443
+            - name: metrics
+              containerPort: 9090
+          # WARN:
+          # . less than 768M causes OOMKilled
+          # . less than 1G cases lots of restarts
+          resources:
+            requests:
+              cpu: 1
+              memory: 2G
+            limits:
+              cpu: 1
+              memory: 2G
+          # TODO: HTTPS problem, replace with a custom script!
+          livenessProbe:
+            httpGet:
+              path: /actuator/health
+              port: ui
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 3
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: ui
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            successThreshold: 1
+            failureThreshold: 1
+            timeoutSeconds: 5
+          securityContext:
+            runAsNonRoot: true
+            runAsUser: 1001
+# TODO: mount keystore secret as volume in folder ?

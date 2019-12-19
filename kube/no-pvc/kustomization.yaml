@@ -1,4 +1,4 @@
-namespace: kafka
+#namespace: change-me
 
 resources:
   - podSecurityPolicy.yaml

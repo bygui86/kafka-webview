@@ -4,6 +4,7 @@ resources:
   - podSecurityPolicy.yaml
   - rbac.yaml
   - configMap.yaml
+  - secret.yaml
   - persistentVolumeClaim.yaml
   - deployment.yaml
   - service.yaml

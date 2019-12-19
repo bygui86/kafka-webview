@@ -18,7 +18,6 @@ spec:
     - ALL
   volumes:
     - persistentVolumeClaim
-    # - secret
   hostNetwork: false
   hostIPC: false
   hostPID: false
@@ -27,10 +26,6 @@ spec:
       max: 65535
   runAsUser:
     rule: MustRunAsNonRoot
-    # rule: MustRunAs
-    # ranges:
-    #   - min: 1000
-    #     max: 65535
   runAsGroup:
     rule: MustRunAs
     ranges:

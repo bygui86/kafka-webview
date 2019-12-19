@@ -9,6 +9,14 @@ metadata:
   name: kafka-webview
 rules:
   - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - use
+    resourceNames:
+      - kafka-webview
+  - apiGroups:
       - policy
     resources:
       - podsecuritypolicies
@@ -28,5 +36,5 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: kafka-webview
-    # Change this accordingly with configuration set in 'kustomization.yaml'
-    namespace: default
+      # Change this accordingly with configuration set in 'kustomization.yaml'
+      namespace: default

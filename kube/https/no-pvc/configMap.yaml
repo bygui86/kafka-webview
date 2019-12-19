@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kafka-webview
+data:
+  # WARN:
+  # . less than 768M causes OOMKilled
+  # . less than 1G cases lots of restarts
+  JAVA_OPTS: "-Xms1792m -Xmx1792m"
+  # kafka-zookeeper
+  ZK_HOSTS: zookeeper-client:2181
+  # server
+  SERVER_PORT: "8443"
+  # tomcat
+#  SERVER_USE_FORWARD_HEADERS: "true"
+#  SERVER_TOMCAT_REMOTE_IP_HEADER: x-forwarded-for
+#  SERVER_TOMCAT_PROTOCOL_HEADER: x-forwarded-proto
